@@ -1,0 +1,5 @@
+# ignore all files terminated with ~
+*~
+
+# ingnore the folder compiled
+compiled/
