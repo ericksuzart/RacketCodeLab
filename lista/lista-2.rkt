@@ -1,5 +1,5 @@
 #lang racket
-(require "../aula2-tarde.rkt")
+(require "../second.rkt")
 (require rackunit)
 
 ; remove-membro (e, l)
