@@ -1,6 +1,5 @@
 #lang racket
-(require rackunit)
-
+(provide (all-defined-out))
 
 ; Questão 1
 ; Escreva as cláusulas para concatenar duas listas em racket:
@@ -13,8 +12,6 @@
   (if (empty? l1)
      l2
      (cons (first l1) (concatenar1 (rest l1) l2))))
-
-(check-equal? (concatenar1 '(a b c) '(d e f g h)) '(a b c d e f g h))
 
 
 ; Questão 2
@@ -30,8 +27,6 @@
      l1
      (cons (first l2) (concatenarInv l1 (rest l2)))))
 
-(check-equal? (concatenarInv '(a b c) '(d e f g h)) '(d e f g h a b c))
-
 
 ; Questão 3
 ; Escreva uma função para concatenar uma lista de listas sem utilizar nenhuma
@@ -46,8 +41,6 @@
      empty
      (append (first ll) (concatenar2 (rest ll)))))
 
-(check-equal? (concatenar2 '((a b) (c) (d e f g))) '(a b c d e f g))
-
 
 ; Questão 4
 ; Escreva uma função variádica para concatenar N listas.
@@ -61,8 +54,6 @@
      empty
      (append (first l) (apply concatenar3 (rest l)))))
 
-(check-equal? (concatenar3 '(a b) '(c) '(d e f g)) '(a b c d e f g))
-
 
 ; Questão 5
 ; Escreva as cláusulas para juntar duas listas, intercalando seus elementos.
@@ -75,8 +66,6 @@
   (if (empty? l1)
      l2
      (cons (first l1) (juntar l2 (rest l1)))))
-
-(check-equal? (juntar '(a b c) '(d e f g h)) '(a d b e c f g h))
 
 
 ; Questão 6
@@ -93,8 +82,6 @@
     [(= n 1) (list e1)]
     [(= n 2) (list e1 e2)]
     [else (cons e1 (cons e2 (intercala (- n 2) e1 e2)))]))
-
-(check-equal? (intercala 5 'x 'y) '(x y x y x))
 
 
 ; Questão 7
@@ -113,9 +100,6 @@
           (apply intercala2 (- n 1) (append (rest e) (list (first e))))
           )]))
 
-(check-equal? (intercala2 5 'x 'y 'z) '(x y z x y))
-(check-equal? (intercala2 5 'x 'y 'z 'w) '(x y z w x))
-
 
 ; Questão 8
 ; Escreva a função parear que recebe um elemento E e uma lista L, e produz a
@@ -131,8 +115,6 @@
      empty
      (cons (list e (first l)) (parear e (rest l)))))
 
-(check-equal? (parear 'x '(a b c)) '((x a) (x b) (x c)))
-
 
 ; Questão 9
 ; Escreva a função pares que recebe uma lista L e produz a lista de todos os
@@ -146,8 +128,6 @@
   (if (empty? l)
      empty
      (append (parear (first l) (rest l)) (pares (rest l)))))
-
-(check-equal? (pares '(a b c d)) '((a b) (a c) (a d) (b c) (b d) (c d)))
 
 
 ; Questão 10
@@ -166,9 +146,6 @@
     [(empty? l) #t]
     [(member (first l) (rest l)) #f]
     [else (conjunto? (rest l))]))
-
-(check-equal? (conjunto? '(a b c d)) #t)
-(check-equal? (conjunto? '(a b c d b)) #f)
 
 
 ; Questão 11
@@ -189,9 +166,6 @@
     [(equal? (first l1) (first l2)) (prefixo? (rest l1) (rest l2))]
     [else #f]))
 
-(check-equal? (prefixo? '(a b c) '(a b c d e f g)) #t)
-(check-equal? (prefixo? '(a b c) '(a b f g)) #f)
-
 
 ; Questão 12
 ; Escreva a função que recebe duas listas e testa se a primeira é subsequência
@@ -211,9 +185,6 @@
     [(equal? (first l1) (first l2)) (prefixo? (rest l1) (rest l2))]
     [else (subsequência? l1 (rest l2))]))
 
-(check-equal? (subsequência? '(a b c) '(d z a b c f g)) #t)
-(check-equal? (subsequência? '(a b c) '(d z a b f c g)) #f)
-
 
 ; Questão 13
 ; Sem usar o comando equal?, escreva a função que recebe duas listas genérica e
@@ -232,14 +203,8 @@
         [(and (symbol? lg1) (symbol? lg2))
               (string=? (symbol->string lg1) (symbol->string lg2))]
         [else (and (iguais-lg? (car lg1) (car lg2))
-                  (iguais-lg? (cdr lg1) (cdr lg2)))]
+                   (iguais-lg? (cdr lg1) (cdr lg2)))]
        ))
-
-(check-equal? (iguais-lg? '() '()) #t)
-(check-equal? (iguais-lg? '(a) '()) #f)
-(check-equal? (iguais-lg? '(a b c) '(a b c)) #t)
-(check-equal? (iguais-lg? '(a b c) '(a b c d)) #f)
-(check-equal? (iguais-lg? '(a (b c)) '(a (b c))) #t)
 
 
 ; Questão 14
@@ -257,9 +222,6 @@
     [(eqv? velho (first lg)) (cons novo (rest lg))]
     [else (cons (first lg) (substitui-lg velho (rest lg) novo))]))
 
-(check-equal? (substitui-lg 'c '(a (b c)) 'manoel) '(a (b manoel)))
-(check-equal? (substitui-lg 'c '(a (b (c))) 'manoel) '(a (b (manoel))))
-
 
 ; Questão 15
 ; Escreva a função aplanar que recebe uma lista genérica LG e produz a lista
@@ -276,4 +238,3 @@
     [else (cons (first lg) (aplanar (rest lg)))]
     ))
 
-(check-equal? (aplanar '(a (b c (d)) (((e))))) '(a b c d e))
